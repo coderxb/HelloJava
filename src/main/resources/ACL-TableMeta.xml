@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TSDL xmlns="http://tas.truetel.com/XML/TSDL" svcName="acl" svcVersion="1.2" tsdlVersion="$Revision: 1.22 $" tsdlDate="$Date: 2011/01/20 01:32:09 $" packageBase="com.oforsky.acl" defaultMaxLength="20" haMode="ActiveActive" passwordEncKey="vup4tpGJP$XU)^">
+	<SvcProperty svcPropertyName="SvcCfg" admAccessMode="rw" scope="svc-global" label="系統參數設定">
+		<SvcAttr svcAttrName="sessionsPerAcc" isRequired="true" type="Integer" defaultValue="0" admAccessMode="rw" label="Sessions per account" comment="The number of sessions for each account allowed. 0 means no limit."/>
+		<SvcAttr svcAttrName="sessionTimeout" isRequired="true" type="Integer" defaultValue="60" admAccessMode="rw" label="Session Timeout" comment="Timeout in minutes"/>
+		<SvcAttr svcAttrName="sessTimerInterval" isRequired="true" type="Integer" defaultValue="10" admAccessMode="rw" label="Session Timeout" comment="Session timer interval in minutes"/>
+		<SvcAttr svcAttrName="hrsProxyJndi" isRequired="false" type="String" maxLength="50" defaultValue="com.oforsky.hrs.proxy.HrsProxy" admAccessMode="rw" label="Proxy of HRS" comment="Set null if HRS is not used"/>
+		<SvcCache attachState="Ready" eagerLoad="false" template="superClass"/>
+	</SvcProperty>
+	<SvcTable svcTableName="Account" admAccessMode="rw" scope="svc-global" label="User Account">
+		<SvcAttr svcAttrName="accountOid" isRequired="true" type="Integer" admAccessMode="ro" />
+		<SvcAttr svcAttrName="loginId" isRequired="false" type="String" transient="true" maxLength="80" admAccessMode="rw" label="Login ID"/>
+		<SvcAttr svcAttrName="name" isRequired="false" type="CString" transient="true" maxLength="40" admAccessMode="rw" label="Full Name"/>
+		<SvcAttr svcAttrName="password" isRequired="false" type="DESPassword" transient="true" maxLength="128" admAccessMode="rc" label="Login Password"/>
+		<SvcAttr svcAttrName="tenantId" isRequired="false" type="String" transient="true" maxLength="20" admAccessMode="ro" label="Tanent ID"/>
+		<SvcAttr svcAttrName="phoneNumber" isRequired="false" type="String" transient="true" maxLength="30" admAccessMode="rw" label="Phone Number"/>
+		<SvcAttr svcAttrName="email" isRequired="false" type="String" transient="true" maxLength="80" admAccessMode="rw" label="Email Address"/>
+		<SvcAttr svcAttrName="info" isRequired="false" type="CString" transient="true" maxLength="256" admAccessMode="rw" label="Information"/>
+		<SvcAttr svcAttrName="accountState" isRequired="false" type="Fsm" transient="true" subType="com.oforsky.sky.auth.AccountState" defaultValue="New" admAccessMode="ro" label="Account State"/>
+		<SvcAttr svcAttrName="remainingAcc" isRequired="false" type="Integer" transient="true" admAccessMode="rw" label="Remine Account Allowed"/>
+		<SvcAttr svcAttrName="systemList" type="ObjectList" subType="String" transient="true" isRequired="false" maxLength="1024" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="awebList" type="ObjectList" subType="String" transient="true" isRequired="false" maxLength="1024" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="uwebList" type="ObjectList" subType="String" transient="true" isRequired="false" maxLength="1024" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="roleCodeList" type="ObjectList" subType="String" transient="true" isRequired="false" maxLength="1024" admAccessMode="rw"
+			comment="If you change the roleCodeList, it will be persisted to RoleAccntMap."/>
+		<SvcAttr svcAttrName="funcCodeList" type="ObjectList" subType="String" transient="true" isRequired="false" maxLength="1024" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="lastResetPwdTime" isRequired="false" type="Date" admAccessMode="ro" transient="true" label="Last Reset Password Time"/>
+		<SvcAttr svcAttrName="lastLoginTime" isRequired="false" type="Date" admAccessMode="ro" label="Last Login Time"/>
+		<SvcAttr svcAttrName="createTime" isRequired="true" type="CreateTime" admAccessMode="ro" label="Create Time"/>
+		<SvcAttr svcAttrName="updateTime" isRequired="true" type="UpdateTime" admAccessMode="ro" label="Update Time"/>
+		<SvcTableKey>
+			<AttrName>accountOid</AttrName>
+		</SvcTableKey>
+		<SvcApi svcApiName="activate" static="false" label="Active Account">
+			<Argument type="String" argName="remark" label="Comment"/>
+		</SvcApi>
+		<SvcApi svcApiName="suspend" static="false" label="Suspend Account">
+			<Argument type="String" argName="remark" label="Comment"/>
+		</SvcApi>
+		<SvcApi svcApiName="resume" static="false" label="Resume Account">
+			<Argument type="String" argName="remark" label="Comment"/>
+		</SvcApi>
+		<SvcApi svcApiName="terminate" static="false" label="Terminate Account">
+			<Argument type="String" argName="remark" label="Comment"/>
+		</SvcApi>
+		<SvcApi svcApiName="sendResetPwd" static="false" label="Send Reset Password Notification"/>
+	</SvcTable>
+	<SvcTable svcTableName="System" admAccessMode="rw" tdmlGen="default"
+		comment="System">
+		<SvcAttr svcAttrName="systemCode" isRequired="true" type="String" admAccessMode="rc" />
+		<SvcAttr svcAttrName="systemName" type="String" maxLength="128" admAccessMode="rw" />
+		<SvcAttr svcAttrName="info" isRequired="false" type="CString" maxLength="256" admAccessMode="rw" label="Information"/>
+		<SvcAttr svcAttrName="hasAweb" isRequired="true" defaultValue="false" type="Boolean" admAccessMode="rw"/>
+		<SvcAttr svcAttrName="hasUweb" isRequired="true" defaultValue="false" type="Boolean" admAccessMode="rw"/>
+		<SvcAttr svcAttrName="createTime" isRequired="true" type="CreateTime" admAccessMode="ro" label="Create Time"/>
+		<SvcAttr svcAttrName="updateTime" isRequired="true" type="UpdateTime" admAccessMode="ro" label="Update Time"/>
+		<SvcAttr svcAttrName="totalFunctions" type="Integer" defaultValue="0" admAccessMode="ro" />
+		<SvcAttr svcAttrName="succImportTime" type="Date" admAccessMode="ro" />
+		<SvcTableKey>
+			<AttrName>systemCode</AttrName>
+		</SvcTableKey>
+		<SvcCache attachState="Ready" eagerLoad="false" template="superClass"/>
+		<SvcApi svcApiName="importMeta" static="true">
+			<Argument type="String" argName="sysCode"/>
+			<Argument type="String" argName="metaDir"/>
+		</SvcApi>
+		<SvcApi svcApiName="importMetaZip" static="true">
+			<Argument type="String" argName="sysCode"/>
+			<Argument type="String" argName="zipFilePath"/>
+		</SvcApi>
+	</SvcTable>
+	<SvcTable svcTableName="Function" admAccessMode="rw"> 
+		<SvcAttr svcAttrName="functionCode" isRequired="true" type="String" maxLength="7" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="systemCode" isRequired="true" type="String" maxLength="3" admAccessMode="rc" />
+		<SvcAttr svcAttrName="webType" isRequired="true" type="Enum" subType="WebType" admAccessMode="rc" defaultValue="AdminWeb"/>
+		<SvcAttr svcAttrName="functionName" type="String" isRequired="false" maxLength="100" admAccessMode="rw"/>
+		<SvcAttr svcAttrName="info" type="String" maxLength="2000" admAccessMode="rw" isShowInGrid="false" label="Information"/>
+		<SvcTableKey>
+			<AttrName>functionCode</AttrName>
+		</SvcTableKey>
+		<SvcForeignKey svcForeignKeyName="System" foreignSvcTableName="System" cascadeDeleteAllowed="true">
+			<AttrName>systemCode</AttrName>
+		</SvcForeignKey>
+		<SvcCache eagerLoad="true" attachState="Ready" template="superClass"/>
+	</SvcTable>
+	<SvcTable svcTableName="AccessRole" admAccessMode="rw" scope="svc-global">
+		<SvcAttr svcAttrName="roleCode" type="String" isRequired="true" maxLength="20" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="systemCode" isRequired="true" type="String" maxLength="3" admAccessMode="rc" />
+		<SvcAttr svcAttrName="webType" isRequired="true" type="Enum" subType="WebType" admAccessMode="rc" defaultValue="AdminWeb"/>
+		<SvcAttr svcAttrName="roleName" type="String" isRequired="true" comment="role name" admAccessMode="rw"/>
+		<SvcAttr svcAttrName="funcCodeList" type="ObjectList" subType="String" transient="true" isRequired="false" maxLength="1024" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="info" isRequired="false" type="CString" maxLength="256" admAccessMode="rw" label="Information"/>
+		<SvcTableKey>
+			<AttrName>roleCode</AttrName>
+		</SvcTableKey>
+		<SvcForeignKey svcForeignKeyName="System" foreignSvcTableName="System" cascadeDeleteAllowed="true">
+			<AttrName>systemCode</AttrName>
+		</SvcForeignKey>
+	</SvcTable>
+	<SvcTable svcTableName="RoleAccntMap" admAccessMode="rw" comment="This table contains the many to many relationship of AccesRole to Account" scope="svc-global">
+		<SvcAttr svcAttrName="mapOid" type="RecId" isRequired="true" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="roleCode" type="String" isRequired="true" maxLength="20" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="accountOid" isRequired="true" type="Integer" admAccessMode="rc" />
+		<SvcTableKey>
+			<AttrName>mapOid</AttrName>
+		</SvcTableKey>
+		<SvcIndex svcIndexName="AppKey" isUnique="true">
+			<AttrName>roleCode</AttrName>
+			<AttrName>accountOid</AttrName>
+		</SvcIndex>
+		<SvcForeignKey svcForeignKeyName="Account" foreignSvcTableName="Account" cascadeDeleteAllowed="true" relationship="containment">
+			<AttrName>accountOid</AttrName>
+		</SvcForeignKey>
+		<SvcForeignKey svcForeignKeyName="AccessRole" foreignSvcTableName="AccessRole" cascadeDeleteAllowed="true">
+			<AttrName>roleCode</AttrName>
+		</SvcForeignKey>
+	</SvcTable>
+	<SvcTable svcTableName="RoleFuncMap" admAccessMode="rw" comment="This table contains many to many relationship of AccessRole and Function" scope="svc-global">
+		<SvcAttr svcAttrName="mapOid" type="RecId" isRequired="true" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="roleCode" type="String" isRequired="true" maxLength="20" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="functionCode" isRequired="true" type="String" maxLength="7" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="allowView" isRequired="true" defaultValue="true" type="Boolean" admAccessMode="rw"/>
+		<SvcAttr svcAttrName="allowUpdate" isRequired="true" defaultValue="false" type="Boolean" admAccessMode="rw"/>
+		<SvcAttr svcAttrName="dataBound" isRequired="true" defaultValue="All" type="Enum" subType="com.oforsky.sky.auth.DataBound" admAccessMode="rw"/>
+		<SvcTableKey>
+			<AttrName>mapOid</AttrName>
+		</SvcTableKey>
+		<SvcIndex svcIndexName="AppKey" isUnique="true">
+			<AttrName>roleCode</AttrName>
+			<AttrName>functionCode</AttrName>
+		</SvcIndex>
+		<SvcForeignKey svcForeignKeyName="AccessRole" foreignSvcTableName="AccessRole" cascadeDeleteAllowed="true" relationship="containment">
+			<AttrName>roleCode</AttrName>
+		</SvcForeignKey>
+		<SvcForeignKey svcForeignKeyName="Function" foreignSvcTableName="Function" cascadeDeleteAllowed="true">
+			<AttrName>functionCode</AttrName>
+		</SvcForeignKey>
+	</SvcTable>
+	<SvcTable svcTableName="LoginSession" admAccessMode="rc" comment="This table contains user sessions" scope="svc-global">
+		<SvcAttr svcAttrName="sessionId" type="String" maxLength="100" isRequired="true" comment="A generated id token for validating user session" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="accountOid" type="Integer" isRequired="true" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="tenantId" isRequired="true" type="String" maxLength="20" admAccessMode="rc" label="Tanent ID"/>
+		<SvcAttr svcAttrName="loginId" isRequired="true" type="String" maxLength="80" admAccessMode="rc" label="Login ID"/>
+		<SvcAttr svcAttrName="fromIp" type="String" isRequired="false" admAccessMode="rc" label="From IP Address"/>
+		<SvcAttr svcAttrName="currentFuncCode" type="String" isRequired="false" admAccessMode="rw" transient="true" label="Current Function Code"
+				comment="Transient attribute for SkyAuthFilter to store current function code of the user"/>
+		<SvcAttr svcAttrName="loginTime" type="CreateTime" isRequired="false" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="lastReqTime" type="Date" isRequired="false" admAccessMode="ro"/>
+		<SvcTableKey>
+			<AttrName>sessionId</AttrName>
+		</SvcTableKey>
+		<SvcIndex svcIndexName="LoginTime" isUnique="false">
+			<AttrName>loginTime</AttrName>
+		</SvcIndex>
+		<SvcIndex svcIndexName="ReqTime" isUnique="false">
+			<AttrName>lastReqTime</AttrName>
+		</SvcIndex>
+		<SvcForeignKey svcForeignKeyName="Account" foreignSvcTableName="Account" cascadeDeleteAllowed="true">
+			<AttrName>accountOid</AttrName>
+		</SvcForeignKey>
+		<SvcApi svcApiName="login" static="true" returnType="LoginSessionEbo">
+			<Argument type="String" argName="loginId"/>
+			<Argument type="String" argName="password"/>
+			<Argument type="String" argName="ip"/>
+		</SvcApi>
+		<SvcApi svcApiName="logout" static="false"/>
+		<SvcApi svcApiName="timeout" static="false"/>
+	</SvcTable>
+	<SvcTable svcTableName="SessionLog" admAccessMode="ro" comment="This table contains user session log records" scope="svc-global">
+		<SvcAttr svcAttrName="logOid" type="RecId" isRequired="true" comment="Unique identifier" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="logTime" type="CreateTime" isRequired="true" comment="Creation time" admAccessMode="ro"/>
+		<SvcAttr svcAttrName="accountOid" type="Integer" isRequired="true"  admAccessMode="rc"/>
+		<SvcAttr svcAttrName="loginId" type="String" isRequired="true"  maxLength="80" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="fromIp" type="String" isRequired="false" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="sessionId" type="String" maxLength="100" isRequired="true" comment="Session ID" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="action" type="Enum" subType="LoginAction" isRequired="true" admAccessMode="rc"/>
+		<SvcTableKey>
+			<AttrName>logOid</AttrName>
+		</SvcTableKey>
+		<SvcIndex svcIndexName="LogTime" isUnique="false">
+			<AttrName>logTime</AttrName>
+		</SvcIndex>
+	</SvcTable>
+	<SvcDataBean dataBeanName="AllowedFunction" comment="Allowed function for a user account">
+		<SvcAttr svcAttrName="systemCode" isRequired="true" type="String" maxLength="3" admAccessMode="rc" />
+		<SvcAttr svcAttrName="functionCode" isRequired="true" type="String" maxLength="7" admAccessMode="rc"/>
+		<SvcAttr svcAttrName="allowView" isRequired="true" defaultValue="true" type="Boolean" admAccessMode="rw"/>
+		<SvcAttr svcAttrName="allowUpdate" isRequired="true" defaultValue="false" type="Boolean" admAccessMode="rw"/>
+		<SvcAttr svcAttrName="dataBound" isRequired="true" defaultValue="All" type="Enum" subType="com.oforsky.sky.auth.DataBound" admAccessMode="rw"/>
+	</SvcDataBean>
+	<SvcApi svcApiName="login" static="false" returnType="LoginSessionEbo">
+		<Argument type="String" argName="loginId"/>
+		<Argument type="String" argName="password"/>
+		<Argument type="String" argName="fromIp"/>
+	</SvcApi>
+	<SvcApi svcApiName="logout">
+		<Argument type="String" argName="sessionId"/>
+	</SvcApi>
+	<SvcApi svcApiName="checkSession">
+		<Argument type="String" argName="sessionId"/>
+	</SvcApi>
+	<SvcApi svcApiName="getSessionInfo" returnType="LoginSessionEbo">
+		<Argument type="String" argName="sessionId"/>
+	</SvcApi>
+	<SvcEnum svcEnumName="WebType" label="Web Type">
+		<SvcEnumItem enumIntValue="1" svcEnumItemName="AdminWeb" label="Admin Web (aweb)"/>
+		<SvcEnumItem enumIntValue="2" svcEnumItemName="EndUserWeb" label="End User Web (uweb)"/>
+	</SvcEnum>  
+	<SvcEnum svcEnumName="LoginAction">
+		<SvcEnumItem enumIntValue="1" svcEnumItemName="Login" comment="Login action"/>
+		<SvcEnumItem enumIntValue="2" svcEnumItemName="Logout" comment="Logout action"/>
+		<SvcEnumItem enumIntValue="3" svcEnumItemName="Timeout" comment="Logout by the system due to timeout "/>
+		<SvcEnumItem enumIntValue="4" svcEnumItemName="Lock" comment="Locked by the system due to too many failure login attempts"/>
+		<SvcEnumItem enumIntValue="5" svcEnumItemName="Unlock" comment="Unlocked by the system admin"/>
+		<SvcEnumItem enumIntValue="6" svcEnumItemName="ForcedLogout" comment="Forced logout by the system"/>
+	</SvcEnum>
+	<Part>
+		<Timer attachState="Primary" name="CheckSession" threadNumber="1" type="ScheduleTimer"/>
+	</Part>
+	<CodeGenBinding>
+		<CodeGen genType="MBean" baseClass="com.oforsky.sky.base.SkyMBean"/>
+		<CodeGen genType="MBeanImpl" baseClass="com.oforsky.sky.base.SkyMBeanImpl"/>
+		<CodeGen genType="SvcEbo" baseClass="com.oforsky.sky.base.SkyEbo&lt;E&gt;"/>
+		<CodeGen genType="SvcDlo" baseClass="com.oforsky.sky.base.SkyDlo&lt;E, P&gt;"/>
+		<CodeGen genType="SvcAction" baseClass="com.oforsky.sky.base.SkyAction"/>
+		<CodeGen genType="SvcProxy" baseClass="com.oforsky.sky.base.SkyProxy"/>
+		<CodeGen genType="SvcQueryBean" baseClass="com.oforsky.sky.base.SkyQueryBean"/>
+	</CodeGenBinding>
+</TSDL>

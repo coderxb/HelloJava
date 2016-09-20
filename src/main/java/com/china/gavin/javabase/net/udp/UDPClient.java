@@ -1,4 +1,4 @@
-package com.china.gavin.javabase.net;
+package com.china.gavin.javabase.net.udp;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -6,14 +6,14 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-public class UDPClient1 {
+public class UDPClient {
     private static final int PORT = 5000;
     private DatagramSocket dataSocket;
     private DatagramPacket dataPacket;
     private byte sendDataByte[];
     private String sendStr;
 
-    public UDPClient1() {
+    public UDPClient() {
         Init();
     }
 
@@ -33,6 +33,6 @@ public class UDPClient1 {
     }
 
     public static void main(String args[]) {
-        new UDPClient1();
+        new UDPClient();
     }
 }

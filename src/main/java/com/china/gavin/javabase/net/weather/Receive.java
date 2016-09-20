@@ -1,4 +1,4 @@
-package com.china.gavin.javabase.net.upd;
+package com.china.gavin.javabase.net.weather;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

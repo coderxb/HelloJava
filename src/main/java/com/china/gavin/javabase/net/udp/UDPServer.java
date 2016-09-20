@@ -1,16 +1,16 @@
-package com.china.gavin.javabase.net;
+package com.china.gavin.javabase.net.udp;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
-public class UDPServer1 {
+public class UDPServer {
     private static final int PORT = 5000;
     private DatagramSocket dataSocket;
     private DatagramPacket dataPacket;
     private byte receiveByte[];
     private String receiveStr;
 
-    public UDPServer1() {
+    public UDPServer() {
         Init();
     }
 
@@ -31,6 +31,6 @@ public class UDPServer1 {
     }
 
     public static void main(String args[]) {
-        new UDPServer1();
+        new UDPServer();
     }
 }

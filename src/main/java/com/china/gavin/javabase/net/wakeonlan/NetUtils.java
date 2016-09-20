@@ -1,4 +1,4 @@
-package com.china.gavin.javabase.net.upd.wakeonlan;
+package com.china.gavin.javabase.net.wakeonlan;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

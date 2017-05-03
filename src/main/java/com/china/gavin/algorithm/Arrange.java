@@ -14,7 +14,7 @@ public class Arrange {
 	private int n = num.length;
 
 	/**
-	 * @param args
+	 * @param argse
 	 */
 	public static void main(String[] args) {
 	}

@@ -38,7 +38,7 @@ import java.util.Random;
 
 public class SortTest {
 
- 
+
 
        /**
 
@@ -68,7 +68,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -90,7 +90,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -114,7 +114,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -190,7 +190,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -218,7 +218,7 @@ public class SortTest {
 
        public void selectSort(int[] data, String sortType) {
 
- 
+
 
               if (sortType.equals("asc")) { //正排序，从小排到大
 
@@ -234,7 +234,7 @@ public class SortTest {
 
                                           index = j;
 
- 
+
 
                                    }
 
@@ -260,7 +260,7 @@ public class SortTest {
 
                                           index = j;
 
- 
+
 
                                    }
 
@@ -282,7 +282,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -360,7 +360,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -372,13 +372,13 @@ public class SortTest {
 
        public void reverse(int[] data) {
 
- 
+
 
               int length = data.length;
 
               int temp = 0;//临时变量
 
- 
+
 
               for (int i = 0; i < length / 2; i++) {
 
@@ -394,7 +394,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -442,7 +442,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -510,7 +510,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -578,7 +578,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -626,7 +626,7 @@ public class SortTest {
 
        }
 
- 
+
 
        /**
 
@@ -680,17 +680,17 @@ public class SortTest {
 
        }
 
- 
+
 
        public static void main(String[] args) {
 
               SortTest sortTest = new SortTest();
 
- 
+
 
               int[] array = sortTest.createArray();
 
- 
+
 
               System.out.println("==========冒泡排序后(正序)==========");
 
@@ -700,21 +700,21 @@ public class SortTest {
 
               sortTest.bubbleSort(array, "desc");
 
- 
+
 
               array = sortTest.createArray();
 
- 
+
 
               System.out.println("==========倒转数组后==========");
 
               sortTest.reverse(array);
 
- 
+
 
               array = sortTest.createArray();
 
- 
+
 
               System.out.println("==========选择排序后(正序)==========");
 
@@ -724,11 +724,11 @@ public class SortTest {
 
               sortTest.selectSort(array, "desc");
 
- 
+
 
               array = sortTest.createArray();
 
- 
+
 
               System.out.println("==========插入排序后(正序)==========");
 
@@ -738,7 +738,7 @@ public class SortTest {
 
               sortTest.insertSort(array, "desc");
 
- 
+
 
               array = sortTest.createArray();
 
@@ -754,7 +754,7 @@ public class SortTest {
 
               sortTest.printArray(array);
 
- 
+
 
               System.out.println("==========数组二分查找==========");
 

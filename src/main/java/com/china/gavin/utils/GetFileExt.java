@@ -13,8 +13,8 @@ public class GetFileExt {
 	    			 t=i;
 	    		 }	    			 
 	    	 }
-	    	 return t;
-	    	} 
+			return t;
+	    	}
 	    public static void main(String[] args){
 	    	String fileName = "lixuebing.ff";
 	    	int tt= GetFileExt.getFileType(fileName);
